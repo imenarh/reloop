@@ -246,7 +246,7 @@
 
   /* ---------- CATEGORY BAR ---------- */
   .category-bar{
-    border-top:1px solid var(--line); background:#fff;
+    border-top:1px solid var(--line); background:rgba(243,234,216,0.92);
   }
   .category-bar .wrap{
     display:flex; gap:30px; padding:12px 28px; overflow-x:auto;

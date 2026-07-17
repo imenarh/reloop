@@ -17,7 +17,7 @@ export default function Home() {
     </div>
 
     <div className="navcta">
-      <Link href="/login" className="btn btn-outline btn-sm">Log in</Link>
+      <Link href="/login" className="btn btn-outline btn-sm">Sign up | Log in</Link>
       <a href="#" className="btn btn-ochre btn-sm">List an item</a>
     </div>
   </nav>
@@ -30,6 +30,8 @@ export default function Home() {
       <a href="#shop">Home</a>
       <a href="#shop">Electronics</a>
       <a href="#shop">Hobbies &amp; collectibles</a>
+      <a href="#shop">Sports &amp; Entertainment</a>
+      <a href="#shop">Furnitures</a>
     </div>
   </div>
 </header>

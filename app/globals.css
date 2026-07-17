@@ -225,7 +225,38 @@
     background:var(--ochre); transition:width .2s ease;
   }
   .navlinks a:hover::after{width:100%;}
-  .navcta{display:flex; gap:12px; align-items:center;}
+  .navcta{display:flex; gap:12px; align-items:center; flex:none;}
+
+  /* ---------- SEARCH BAR ---------- */
+  .search-bar{flex:1; max-width:480px; margin:0 32px;}
+  .search-input-wrap{position:relative; display:flex; align-items:center;}
+  .search-icon{
+    position:absolute; left:14px; color:var(--ink-soft); pointer-events:none;
+  }
+  .search-input{
+    width:100%; padding:10px 16px 10px 40px; border-radius:999px;
+    border:1.5px solid var(--line); background:var(--paper-dim);
+    font-family: var(--font-work-sans), sans-serif; font-size:0.9rem; color:var(--ink);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .search-input:focus{
+    outline:none; border-color:var(--teal); background:#fff;
+  }
+  .search-input::placeholder{color:var(--ink-soft);}
+
+  /* ---------- CATEGORY BAR ---------- */
+  .category-bar{
+    border-top:1px solid var(--line); background:#fff;
+  }
+  .category-bar .wrap{
+    display:flex; gap:30px; padding:12px 28px; overflow-x:auto;
+  }
+  .category-bar a{
+    font-size:0.9rem; font-weight:600; color:var(--ink-soft); white-space:nowrap;
+    transition:color .15s ease;
+  }
+  .category-bar a:hover{color:var(--indigo-deep);}
+
   .btn{
     display:inline-flex; align-items:center; gap:8px;
     padding:11px 20px; border-radius:999px; font-weight:700; font-size:0.92rem;
@@ -472,6 +503,8 @@
     .impact-grid{grid-template-columns:repeat(2,1fr);}
     .footer-top{grid-template-columns:1fr 1fr;}
     .navlinks{display:none;}
+    .search-bar{display:none;}
+    .category-bar .wrap{gap:20px; padding:10px 20px;}
   }
   /* ---------- PHOTO SLOTS ----------
      Drop your own photos into these by adding an <img class="item-img"> (for listing

@@ -5,14 +5,10 @@ import { db } from '@/db';
 import { listings, listingImages, categories, user } from '@/db/schema';
 import { requireUser, requireAdmin } from '@/lib/session';
 import { createListingSchema, updateListingSchema } from '@/lib/validators';
+import type { CreateListingInput, UpdateListingInput, DisposalType, ListingStatus } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
-/**
- * Creates a listing plus its images in one transaction.
- * `imageUrls` come from the client after it's already uploaded each
- * file directly to R2 via the presigned URL from /api/upload.
- */
-export async function createListing(input: unknown) {
+export async function createListing(input: CreateListingInput) {
     const seller = await requireUser();
     const data = createListingSchema.parse(input);
 
@@ -43,7 +39,7 @@ export async function createListing(input: unknown) {
     });
 }
 
-export async function updateListing(listingId: string, input: unknown) {
+export async function updateListing(listingId: string, input: UpdateListingInput) {
     const currentUser = await requireUser();
     const data = updateListingSchema.parse(input);
 
@@ -56,10 +52,10 @@ export async function updateListing(listingId: string, input: unknown) {
     const [updated] = await db
         .update(listings)
         .set({
-            ...(data.title && { title: data.title }),
-            ...(data.description && { description: data.description }),
-            ...(data.categoryId && { categoryId: data.categoryId }),
-            ...(data.condition && { condition: data.condition }),
+            ...(data.title !== undefined && { title: data.title }),
+            ...(data.description !== undefined && { description: data.description }),
+            ...(data.categoryId !== undefined && { categoryId: data.categoryId }),
+            ...(data.condition !== undefined && { condition: data.condition }),
             ...(data.price !== undefined && { price: data.price != null ? String(data.price) : null }),
             updatedAt: new Date(),
         })
@@ -70,7 +66,6 @@ export async function updateListing(listingId: string, input: unknown) {
     return updated;
 }
 
-/** Admin-only takedown for moderation (reported/abusive listings). */
 export async function removeListing(listingId: string) {
     await requireAdmin();
     const [updated] = await db
@@ -108,8 +103,8 @@ export async function getListingById(listingId: string) {
 
 interface ListListingsFilters {
     categoryId?: string;
-    disposalType?: 'resale' | 'donation';
-    status?: 'active' | 'pending' | 'sold' | 'claimed' | 'removed';
+    disposalType?: DisposalType;
+    status?: ListingStatus;
     limit?: number;
     offset?: number;
 }

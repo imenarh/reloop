@@ -5,15 +5,14 @@ import { db } from '@/db';
 import { categories } from '@/db/schema';
 import { requireAdmin } from '@/lib/session';
 import { createCategorySchema } from '@/lib/validators';
+import type { CreateCategoryInput } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
-/** Public — categories power the browse/filter UI. */
 export async function listCategories() {
     return db.select().from(categories).orderBy(asc(categories.name));
 }
 
-/** Flat categories only — no nesting, per the team's tech decisions. */
-export async function createCategory(input: unknown) {
+export async function createCategory(input: CreateCategoryInput) {
     await requireAdmin();
     const data = createCategorySchema.parse(input);
 

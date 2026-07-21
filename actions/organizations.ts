@@ -5,10 +5,10 @@ import { db } from '@/db';
 import { organizations } from '@/db/schema';
 import { requireUser, requireAdmin } from '@/lib/session';
 import { createOrganizationSchema } from '@/lib/validators';
+import type { CreateOrganizationInput } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
-/** Any logged-in user can apply to register an organization; starts as 'pending'. */
-export async function applyAsOrganization(input: unknown) {
+export async function applyAsOrganization(input: CreateOrganizationInput) {
     const currentUser = await requireUser();
     const data = createOrganizationSchema.parse(input);
 
@@ -21,7 +21,6 @@ export async function applyAsOrganization(input: unknown) {
     return org;
 }
 
-/** Admin approval workflow — this gates who can receive donation claims. */
 export async function approveOrganization(organizationId: string) {
     await requireAdmin();
     const [org] = await db
@@ -52,6 +51,5 @@ export async function listPendingOrganizations() {
 }
 
 export async function listApprovedOrganizations() {
-    // Public — donors/sellers need to see who they can donate to.
     return db.select().from(organizations).where(eq(organizations.charityStatus, 'approved'));
 }

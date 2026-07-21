@@ -5,14 +5,10 @@ import { db } from '@/db';
 import { orders, listings, organizations } from '@/db/schema';
 import { requireUser } from '@/lib/session';
 import { createOrderSchema } from '@/lib/validators';
+import type { CreateOrderInput } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
-/**
- * Creates an order against a listing — either a straight purchase or a
- * donation claim by a verified organization. No cart: one listing maps
- * to exactly one order (enforced by the unique constraint on listing_id).
- */
-export async function createOrder(input: unknown) {
+export async function createOrder(input: CreateOrderInput) {
     const buyer = await requireUser();
     const data = createOrderSchema.parse(input);
 
@@ -46,7 +42,6 @@ export async function createOrder(input: unknown) {
                 sellerId: listing.sellerId,
                 organizationId: data.organizationId ?? null,
                 type: data.type,
-                // Mock payment flow — real gateway can swap in later without a schema change.
                 amount: data.type === 'purchase' ? listing.price : null,
                 paymentStatus: data.type === 'purchase' ? 'mock_paid' : 'pending',
             })
@@ -63,7 +58,6 @@ export async function createOrder(input: unknown) {
     });
 }
 
-/** Marks a donation claim as fulfilled (org actually received the item). */
 export async function completeOrder(orderId: string) {
     const currentUser = await requireUser();
 

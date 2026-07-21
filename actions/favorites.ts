@@ -6,7 +6,6 @@ import { favorites } from '@/db/schema';
 import { requireUser } from '@/lib/session';
 import { revalidatePath } from 'next/cache';
 
-/** Toggles a listing in/out of the current user's favorites. */
 export async function toggleFavorite(listingId: string) {
     const currentUser = await requireUser();
 

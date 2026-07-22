@@ -90,7 +90,7 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
                                 </Link>
                                 <span aria-hidden>·</span>
                                 <span>{conditionLabels[l.condition]}</span>
-                                {l.disposalType === 'donation' && <Badge>Donation</Badge>}
+                                {l.disposalType === 'donation' && <Badge variant="secondary">Donation</Badge>}
                             </div>
                             <h1 className="font-heading text-3xl font-semibold text-foreground">{l.title}</h1>
                             {l.disposalType === 'resale' ? (

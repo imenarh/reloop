@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Figtree, Roboto_Slab } from "next/font/google";
+import { Work_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Toaster } from "@/components/ui/sonner";
 
-const figtree = Figtree({
-  variable: "--font-figtree",
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const robotoSlab = Roboto_Slab({
-  variable: "--font-roboto-slab",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
 });
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", figtree.variable, robotoSlab.variable, "font-sans")}
+      className={cn("h-full", "antialiased", workSans.variable, fraunces.variable, "font-sans")}
     >
       <body className="min-h-full flex flex-col">
         <SiteHeader />

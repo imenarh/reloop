@@ -4,98 +4,113 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ================= ReLoop brand palette ================= */
+/* Same tokens as the marketing site — keep these two in sync. */
 :root {
-  --card: oklch(1 0 0);
-  --ring: oklch(0.705 0.015 286.067);
-  --input: oklch(0.92 0.004 286.32);
-  --muted: oklch(0.967 0.001 286.375);
-  --accent: oklch(0.967 0.001 286.375);
-  --border: oklch(0.92 0.004 286.32);
-  --radius: 0.5rem;
-  --chart-1: oklch(0.871 0.006 286.286);
-  --chart-2: oklch(0.552 0.016 285.938);
-  --chart-3: oklch(0.442 0.017 285.786);
-  --chart-4: oklch(0.37 0.013 285.805);
-  --chart-5: oklch(0.274 0.006 286.033);
-  --popover: oklch(1 0 0);
-  --primary: oklch(0.553 0.195 38.402);
-  --sidebar: oklch(0.985 0 0);
+  --indigo: #1b2a4a;
+  --indigo-deep: #121d33;
+  --ochre: #d9a441;
+  --ochre-deep: #b9832e;
+  --teal: #2f6b5e;
+  --teal-deep: #234f45;
+  --clay: #b23a2e;
+  --paper: #f3ead8;
+  --paper-dim: #eadfc6;
+  --ink: #241d16;
+  --ink-soft: #5b5142;
+  --line: #d9cba8;
+
+  --card: #ffffff;
+  --ring: var(--ochre-deep);
+  --input: var(--line);
+  --muted: var(--paper-dim);
+  --accent: var(--paper-dim);
+  --border: var(--line);
+  --radius: 0.875rem;
+  --chart-1: var(--ochre);
+  --chart-2: var(--teal);
+  --chart-3: var(--indigo);
+  --chart-4: var(--clay);
+  --chart-5: var(--ochre-deep);
+  --popover: #ffffff;
+  --primary: var(--ochre);
+  --sidebar: var(--paper-dim);
   --spacing: 0.25rem;
   --font-mono: JetBrains Mono, Menlo, monospace;
-  --font-sans: var(--font-figtree), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
-  --secondary: oklch(0.967 0.001 286.375);
-  --font-heading: var(--font-roboto-slab), Georgia, serif;
-  --destructive: oklch(0.577 0.245 27.325);
-  --shadow-blur: 4px;
-  --shadow-color: 0 0 0;
-  --sidebar-ring: oklch(0.705 0.015 286.067);
-  --shadow-spread: 0px;
-  --letter-spacing: -0.01em;
-  --shadow-opacity: 0.05;
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --card-foreground: oklch(0.141 0.005 285.823);
+  --font-sans: var(--font-work-sans), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  --secondary: var(--teal);
+  --font-heading: var(--font-fraunces), Georgia, serif;
+  --destructive: var(--clay);
+  --shadow-blur: 16px;
+  --shadow-color: 18 29 51;
+  --sidebar-ring: var(--ochre-deep);
+  --shadow-spread: -6px;
+  --letter-spacing: 0em;
+  --shadow-opacity: 0.16;
+  --sidebar-accent: var(--paper);
+  --sidebar-border: var(--line);
+  --card-foreground: var(--ink);
   --shadow-offset-x: 0px;
-  --shadow-offset-y: 1px;
-  --sidebar-primary: oklch(0.646 0.222 41.116);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --destructive-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
+  --shadow-offset-y: 10px;
+  --sidebar-primary: var(--ochre);
+  --muted-foreground: var(--ink-soft);
+  --accent-foreground: var(--indigo-deep);
+  --popover-foreground: var(--ink);
+  --primary-foreground: var(--indigo-deep);
+  --sidebar-foreground: var(--ink);
+  --secondary-foreground: var(--paper);
+  --destructive-foreground: #ffffff;
+  --sidebar-accent-foreground: var(--indigo-deep);
+  --sidebar-primary-foreground: var(--indigo-deep);
+  --background: var(--paper);
+  --foreground: var(--ink);
 }
 
 .dark {
-  --card: oklch(0.21 0.006 285.885);
-  --ring: oklch(0.552 0.016 285.938);
-  --input: oklch(1 0 0 / 15%);
-  --muted: oklch(0.274 0.006 286.033);
-  --accent: oklch(0.274 0.006 286.033);
-  --border: oklch(1 0 0 / 10%);
-  --radius: 0.5rem;
-  --chart-1: oklch(0.871 0.006 286.286);
-  --chart-2: oklch(0.552 0.016 285.938);
-  --chart-3: oklch(0.442 0.017 285.786);
-  --chart-4: oklch(0.37 0.013 285.805);
-  --chart-5: oklch(0.274 0.006 286.033);
-  --popover: oklch(0.21 0.006 285.885);
-  --primary: oklch(0.47 0.157 37.304);
-  --sidebar: oklch(0.21 0.006 285.885);
+  --card: var(--indigo);
+  --ring: var(--ochre);
+  --input: rgba(243, 234, 216, 0.16);
+  --muted: #1a2740;
+  --accent: #1a2740;
+  --border: rgba(243, 234, 216, 0.12);
+  --radius: 0.875rem;
+  --chart-1: var(--ochre);
+  --chart-2: var(--teal);
+  --chart-3: var(--paper);
+  --chart-4: var(--clay);
+  --chart-5: var(--ochre-deep);
+  --popover: var(--indigo);
+  --primary: var(--ochre);
+  --sidebar: var(--indigo-deep);
   --spacing: 0.25rem;
   --font-mono: JetBrains Mono, Menlo, monospace;
-  --font-sans: var(--font-figtree), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
-  --secondary: oklch(0.274 0.006 286.033);
-  --background: oklch(0.141 0.005 285.823);
-  --font-heading: var(--font-roboto-slab), Georgia, serif;
-  --foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --shadow-blur: 8px;
+  --font-sans: var(--font-work-sans), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  --secondary: var(--teal);
+  --background: var(--indigo-deep);
+  --font-heading: var(--font-fraunces), Georgia, serif;
+  --foreground: var(--paper);
+  --destructive: var(--clay);
+  --shadow-blur: 20px;
   --shadow-color: 0 0 0;
-  --sidebar-ring: oklch(0.552 0.016 285.938);
-  --shadow-spread: 0px;
-  --letter-spacing: -0.01em;
+  --sidebar-ring: var(--ochre);
+  --shadow-spread: -6px;
+  --letter-spacing: 0em;
   --shadow-opacity: 0.4;
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --card-foreground: oklch(0.985 0 0);
+  --sidebar-accent: #1a2740;
+  --sidebar-border: rgba(243, 234, 216, 0.12);
+  --card-foreground: var(--paper);
   --shadow-offset-x: 0px;
-  --shadow-offset-y: 2px;
-  --sidebar-primary: oklch(0.705 0.213 47.604);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent-foreground: oklch(0.985 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
+  --shadow-offset-y: 12px;
+  --sidebar-primary: var(--ochre);
+  --muted-foreground: rgba(243, 234, 216, 0.65);
+  --accent-foreground: var(--paper);
+  --popover-foreground: var(--paper);
+  --primary-foreground: var(--indigo-deep);
+  --sidebar-foreground: var(--paper);
+  --secondary-foreground: var(--paper);
+  --destructive-foreground: #ffffff;
+  --sidebar-accent-foreground: var(--paper);
+  --sidebar-primary-foreground: var(--indigo-deep);
 }
 
 @theme inline {
@@ -162,6 +177,9 @@
   }
   html {
     @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
   }
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;

@@ -47,8 +47,18 @@ export default async function Home() {
             {/* HERO */}
             <section>
                 <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-                    <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance text-foreground md:text-5xl">
-                        Your closet still has somewhere to go.
+                    <h1 className="font-heading text-5xl font-semibold tracking-tight text-balance leading-[1.05] text-foreground md:text-6xl">
+                        Your closet still has
+                        <br />
+                        <span
+                            className="text-[var(--clay)]"
+                            style={{
+                                backgroundImage:
+                                    'linear-gradient(180deg, transparent 62%, var(--ochre) 62%)',
+                            }}
+                        >
+                            somewhere to go.
+                        </span>
                     </h1>
                     <p className="mx-auto mt-4 max-w-xl text-lg text-balance text-muted-foreground">
                         Buy and sell second-hand clothes, shoes, furniture and accessories — or donate them to a

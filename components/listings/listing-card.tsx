@@ -33,7 +33,7 @@ export function ListingCard({ listing, showFavorite = true }: ListingCardProps) 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
                 {l.disposalType === 'donation' ? (
-                    <Badge className="absolute top-2.5 left-2.5">Donation</Badge>
+                    <Badge variant="secondary" className="absolute top-2.5 left-2.5">Donation</Badge>
                 ) : null}
 
                 {showFavorite && (

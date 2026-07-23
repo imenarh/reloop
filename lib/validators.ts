@@ -34,7 +34,10 @@ export const createListingSchema = baseListingSchema
     });
 
 export const updateListingSchema = baseListingSchema
-    .extend({ price: z.union([z.string(), z.number()]).optional() })
+    .extend({
+        price: z.union([z.string(), z.number()]).optional(),
+        imageUrls: z.array(z.string().url()).min(1).max(8).optional(),
+    })
     .partial();
 
 /* Organizations — NGO onboarding, admin-approved */

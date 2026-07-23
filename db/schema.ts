@@ -46,6 +46,8 @@ export const user = pgTable('user', {
     emailVerified: boolean('email_verified').notNull().default(false),
     image: text('image'),
     role: userRoleEnum('role').notNull().default('user'),
+    bio: text('bio'),
+    onboardedAt: timestamp('onboarded_at'),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });

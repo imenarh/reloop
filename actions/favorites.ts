@@ -3,10 +3,9 @@
 import { and, eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { favorites } from '@/db/schema';
-import { requireUser } from '@/lib/session';
+import { getCurrentSession, requireUser } from '@/lib/session';
 import { revalidatePath } from 'next/cache';
 
-/** Toggles a listing in/out of the current user's favorites. */
 export async function toggleFavorite(listingId: string) {
     const currentUser = await requireUser();
 
@@ -30,6 +29,29 @@ export async function getUserFavorites() {
     const currentUser = await requireUser();
     return db.query.favorites.findMany({
         where: (f, { eq }) => eq(f.userId, currentUser.id),
-        with: { listing: true },
+        with: {
+            listing: {
+                with: {
+                    seller: { columns: { id: true, name: true, image: true } },
+                    category: { columns: { id: true, name: true, slug: true } },
+                    images: {
+                        orderBy: (imageTable, { asc }) => asc(imageTable.position),
+                    },
+                },
+            },
+        },
     });
+}
+
+export async function isListingFavorited(listingId: string): Promise<boolean> {
+    const session = await getCurrentSession();
+    if (!session?.user) return false;
+
+    const [existing] = await db
+        .select({ id: favorites.id })
+        .from(favorites)
+        .where(and(eq(favorites.userId, session.user.id), eq(favorites.listingId, listingId)))
+        .limit(1);
+
+    return Boolean(existing);
 }

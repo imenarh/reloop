@@ -14,7 +14,7 @@ export const auth = betterAuth({
     }),
     plugins: [
       emailOTP({
-          expiresIn: 1 * 60,
+          expiresIn: 5 * 60,
             async sendVerificationOTP({ email, otp, type }) {
                 const subject =
                     type === "sign-in"
@@ -24,7 +24,7 @@ export const auth = betterAuth({
                     from: process.env.EMAIL_FROM ?? "ReLoop <reloop@0xherve.tech>",
                     to: email,
                     subject,
-                    text: `Your ReLoop verification code is ${otp}. It expires in 1 minutes.`,
+                    text: `Your ReLoop verification code is ${otp}. It expires in 5 minutes.`,
                 });
             },
         }),

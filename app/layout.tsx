@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
-import { Fraunces, Work_Sans } from "next/font/google";
+import { Work_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { Toaster } from "@/components/ui/sonner";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "900"],
-});
 const workSans = Work_Sans({
   variable: "--font-work-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -27,9 +32,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${workSans.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", workSans.variable, fraunces.variable, "font-sans")}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
+        <Toaster />
+      </body>
     </html>
   );
 }

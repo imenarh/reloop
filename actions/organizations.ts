@@ -1,9 +1,9 @@
 'use server';
 
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { organizations } from '@/db/schema';
-import { requireUser, requireAdmin } from '@/lib/session';
+import { getCurrentSession, requireUser, requireAdmin } from '@/lib/session';
 import { createOrganizationSchema } from '@/lib/validators';
 import type { CreateOrganizationInput } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
@@ -52,4 +52,14 @@ export async function listPendingOrganizations() {
 
 export async function listApprovedOrganizations() {
     return db.select().from(organizations).where(eq(organizations.charityStatus, 'approved'));
+}
+
+export async function getUserApprovedOrganizations() {
+    const session = await getCurrentSession();
+    if (!session?.user) return [];
+
+    return db
+        .select()
+        .from(organizations)
+        .where(and(eq(organizations.createdBy, session.user.id), eq(organizations.charityStatus, 'approved')));
 }

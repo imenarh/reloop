@@ -13,6 +13,8 @@ export interface User {
     emailVerified: boolean;
     image: string | null;
     role: UserRole;
+    bio: string | null;
+    onboardedAt: Date | null;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -92,7 +94,9 @@ export interface CreateListingInput {
     imageUrls: string[];
 }
 
-export type UpdateListingInput = Partial<Omit<CreateListingInput, 'imageUrls'>>;
+export type UpdateListingInput = Partial<Omit<CreateListingInput, 'imageUrls'>> & {
+    imageUrls?: string[];
+};
 
 export interface CreateOrganizationInput {
     name: string;

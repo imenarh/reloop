@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { auth } from './auth';
 import { db } from '@/db';
 import { user } from '@/db/schema';
+import { ActionError } from './errors';
 
 
 export async function getCurrentSession() {
@@ -13,7 +14,7 @@ export async function getCurrentSession() {
 export async function requireUser() {
     const session = await getCurrentSession();
     if (!session?.user) {
-        throw new Error('UNAUTHENTICATED');
+        throw new ActionError('UNAUTHENTICATED');
     }
   
     const [dbUser] = await db
@@ -23,7 +24,7 @@ export async function requireUser() {
         .limit(1);
     
     if (!dbUser) {
-        throw new Error('USER_NOT_FOUND');
+        throw new ActionError('USER_NOT_FOUND');
     }
     
     return dbUser;
@@ -32,7 +33,7 @@ export async function requireUser() {
 export async function requireAdmin() {
     const dbUser = await requireUser();
     if (dbUser.role !== 'admin') {
-        throw new Error('FORBIDDEN');
+        throw new ActionError('FORBIDDEN');
     }
     return dbUser;
 }

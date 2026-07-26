@@ -5,10 +5,10 @@ import { db } from '@/db';
 import { reviews, orders } from '@/db/schema';
 import { requireUser } from '@/lib/session';
 import { createReviewSchema } from '@/lib/validators';
+import type { CreateReviewInput } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
-/** A review can only be left by the buyer on a completed order, once. */
-export async function createReview(input: unknown) {
+export async function createReview(input: CreateReviewInput) {
     const reviewer = await requireUser();
     const data = createReviewSchema.parse(input);
 

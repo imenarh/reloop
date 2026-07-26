@@ -1,231 +1,224 @@
 import Link from 'next/link';
+import {
+    IconChevronDown,
+    IconGift,
+    IconPackage,
+    IconShieldCheck,
+    IconTag,
+    IconTruckDelivery,
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/button';
+
+const sellSteps = [
+    'Take a few clear photos and describe the item honestly — size, condition, any wear.',
+    'Set your price and publish. It appears in the relevant category instantly.',
+    'A buyer orders and pays for shipping on top of your price — that part is never deducted from you.',
+    'You package the item and drop it at a pickup point. The buyer can track it the whole way.',
+    'Once the buyer confirms it matches the listing, your full asking price is released to you.',
+];
+
+const donateSteps = [
+    'Take the same clear photos, but select "Donate" instead of setting a price.',
+    'ReLoop reviews the photos to confirm the item is clean and usable.',
+    'Once approved, we match it with one of our charity partners in Kigali.',
+    'You drop it at the same pickup point sellers use — no separate process to learn.',
+    "We handle delivery to the partner organization. You'll see which one received it.",
+];
+
+const infoCards = [
+    {
+        icon: IconShieldCheck,
+        title: 'Payment protection',
+        desc: 'Money from a sale sits with ReLoop until the buyer confirms the item arrived as described. Sellers never ship into the unknown, and buyers never pay for a surprise.',
+    },
+    {
+        icon: IconTruckDelivery,
+        title: 'Tracked shipping',
+        desc: "Every sold item gets a tracking number the buyer can follow from pickup to delivery. Shipping is paid by the buyer, on top of the item's price.",
+    },
+    {
+        icon: IconPackage,
+        title: 'Condition checks',
+        desc: "Donated items are reviewed before they're routed to a partner, so charities only receive things that are genuinely usable.",
+    },
+];
+
+const faqs = [
+    {
+        q: 'How do I get paid after a sale?',
+        a: 'Once your buyer confirms the item matches the listing, your full asking price is released to your ReLoop balance, which you can withdraw to mobile money or your bank account.',
+    },
+    {
+        q: 'Can I change a listing from "Sell" to "Donate" later?',
+        a: 'Yes — as long as no buyer has purchased it yet, you can switch a listing between selling and donating at any time from your dashboard.',
+    },
+    {
+        q: 'Who pays for shipping?',
+        a: "The buyer pays shipping on top of the item's price when they check out. Sellers are never charged for postage, and donations ship for free.",
+    },
+    {
+        q: "What happens if my donated item isn't accepted?",
+        a: "If an item doesn't pass our condition check, we'll let you know why and you can choose to collect it again or dispose of it responsibly.",
+    },
+    {
+        q: 'Which charities does ReLoop work with?',
+        a: 'Any organization approved through our vetting process can receive donations — you can see the current list of approved partners in the footer, and which one received your donation from your account.',
+    },
+];
 
 export default function HowItWorks() {
-  return (
-    <>
+    return (
+        <>
+            {/* HEADER */}
+            <section className="border-b border-border py-16">
+                <div className="mx-auto max-w-7xl px-6">
+                    <div className="max-w-2xl">
+                        <p className="mb-3 text-sm font-semibold text-primary">How ReLoop works</p>
+                        <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance text-foreground md:text-5xl">
+                            From your closet to someone else&apos;s, step by step.
+                        </h1>
+                        <p className="mt-4 max-w-lg text-lg text-muted-foreground">
+                            Every listing starts the exact same way. Where it ends up — a buyer&apos;s doorstep or
+                            a charity partner&apos;s hands — is entirely up to you.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-<header>
-  <nav>
-    <Link href="/" className="logo"><span className="dot"></span>ReLoop</Link>
+            {/* THE TWO PATHS */}
+            <section className="py-16">
+                <div className="mx-auto max-w-7xl px-6">
+                    <div className="mb-10 max-w-xl">
+                        <h2 className="font-heading text-2xl font-semibold text-foreground">
+                            Pick your path when you list.
+                        </h2>
+                        <p className="mt-2 text-muted-foreground">
+                            Both start with the same photos. Here&apos;s exactly what happens after that.
+                        </p>
+                    </div>
 
-    <div className="search-bar">
-      <div className="search-input-wrap">
-        <svg className="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" className="search-input" placeholder="Search for items" />
-      </div>
-    </div>
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                        <PathCard
+                            icon={IconTag}
+                            title="Sell it"
+                            intro="You set the price. ReLoop connects you with a buyer, handles tracking, and only releases your money once the sale is confirmed."
+                            steps={sellSteps}
+                            note="If an item doesn't match its description, the buyer can flag it before funds are released — that's what keeps sellers honest and buyers confident."
+                        />
+                        <PathCard
+                            icon={IconGift}
+                            title="Donate it"
+                            intro="No price, no fees. You're clearing space and someone else is getting something they need."
+                            steps={donateSteps}
+                            note="Donated items are never resold by ReLoop or by our partners — they go directly to people who need them."
+                        />
+                    </div>
+                </div>
+            </section>
 
-    <div className="navcta">
-      <Link href="/login" className="btn btn-outline btn-sm">Log in</Link>
-      <a href="/#shop" className="btn btn-ochre btn-sm">List an item</a>
-    </div>
-  </nav>
+            {/* TRUST / LOGISTICS */}
+            <section className="border-y border-border bg-muted/40 py-16">
+                <div className="mx-auto max-w-7xl px-6">
+                    <div className="mb-10 max-w-xl">
+                        <h2 className="font-heading text-2xl font-semibold text-foreground">
+                            Trust isn&apos;t automatic. We build it into every step.
+                        </h2>
+                    </div>
 
-  <div className="category-bar">
-    <div className="wrap">
-      <a href="/#shop">Women</a>
-      <a href="/#shop">Men</a>
-      <a href="/#shop">Kids</a>
-      <a href="/#shop">Home</a>
-      <a href="/#shop">Electronics</a>
-      <a href="/#shop">Hobbies &amp; collectibles</a>
-    </div>
-  </div>
-</header>
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                        {infoCards.map((card) => (
+                            <div key={card.title} className="rounded-xl bg-background p-6 ring-1 ring-foreground/10">
+                                <div className="mb-4 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                    <card.icon className="size-5" />
+                                </div>
+                                <h3 className="font-heading text-lg font-semibold text-foreground">{card.title}</h3>
+                                <p className="mt-1 text-sm text-muted-foreground">{card.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-<div className="trim"></div>
+            {/* FAQ */}
+            <section className="py-16">
+                <div className="mx-auto max-w-3xl px-6">
+                    <h2 className="mb-8 font-heading text-2xl font-semibold text-foreground">
+                        Common questions
+                    </h2>
 
-{/* HERO */}
-<section className="hero">
-  <div className="wrap" style={{ gridTemplateColumns: '1fr' }}>
-    <div style={{ maxWidth: '640px' }}>
-      <div className="eyebrow">How ReLoop works</div>
-      <h1>From your closet<br />to <em>someone else&apos;s</em>, step by step.</h1>
-      <p className="lede" style={{ maxWidth: '560px' }}>
-        Every listing starts the exact same way. Where it ends up — a buyer&apos;s doorstep or a
-        charity partner&apos;s hands — is entirely up to you.
-      </p>
-    </div>
-  </div>
-</section>
+                    <div className="flex flex-col gap-3">
+                        {faqs.map((faq) => (
+                            <details
+                                key={faq.q}
+                                className="group rounded-xl bg-background px-5 py-4 ring-1 ring-foreground/10"
+                            >
+                                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-foreground marker:hidden [&::-webkit-details-marker]:hidden">
+                                    {faq.q}
+                                    <IconChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
+                                </summary>
+                                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{faq.a}</p>
+                            </details>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-<div className="trim"></div>
+            {/* CTA */}
+            <section className="border-t border-border bg-muted/40 py-16">
+                <div className="mx-auto max-w-7xl px-6 text-center">
+                    <h2 className="font-heading text-2xl font-semibold text-foreground md:text-3xl">
+                        Ready to clear out your closet?
+                    </h2>
+                    <p className="mt-2 text-muted-foreground">
+                        Sell it, give it away, or a bit of both — the choice is yours every time you list.
+                    </p>
+                    <div className="mt-6 flex flex-wrap justify-center gap-3">
+                        <Button size="lg" nativeButton={false} render={<Link href="/listings/new" />}>
+                            List an item
+                        </Button>
+                        <Button size="lg" variant="outline" nativeButton={false} render={<Link href="/listings" />}>
+                            Browse listings
+                        </Button>
+                    </div>
+                </div>
+            </section>
+        </>
+    );
+}
 
-{/* THE TWO PATHS, IN DETAIL */}
-<section id="paths">
-  <div className="wrap">
-    <div className="section-head">
-      <div className="eyebrow">Two ways to re-loop</div>
-      <h2>Pick your path when you list.</h2>
-      <p>Both start with the same three taps. Here&apos;s exactly what happens after that.</p>
-    </div>
-
-    <div className="paths">
-      <div className="path-card path-sell">
-        <div className="path-icon">💰</div>
-        <h3>Sell it</h3>
-        <p className="desc">You set the price. ReLoop connects you with a buyer, handles tracking, and only releases your money once the sale is confirmed.</p>
-        <ul className="step-list">
-          <li><span className="step-num">1</span>Take a few clear photos and describe the item honestly — size, condition, any wear.</li>
-          <li><span className="step-num">2</span>Set your price and publish the listing. It appears in the relevant category instantly.</li>
-          <li><span className="step-num">3</span>A buyer orders and pays for shipping on top of your price — that part is never deducted from you.</li>
-          <li><span className="step-num">4</span>You package the item and drop it at a pickup point. The buyer can track it the whole way.</li>
-          <li><span className="step-num">5</span>Once the buyer confirms it matches the listing, your full asking price is released to you.</li>
-        </ul>
-        <div className="loop-note">If an item doesn&apos;t match its description, the buyer can flag it before funds are released — that&apos;s what keeps sellers honest and buyers confident.</div>
-      </div>
-
-      <div className="path-card path-donate">
-        <div className="path-icon">🤝</div>
-        <h3>Donate it</h3>
-        <p className="desc">No price, no fees. You're clearing space and someone else is getting something they need.</p>
-        <ul className="step-list">
-          <li><span className="step-num">1</span>Take the same clear photos, but select &quot;Donate&quot; instead of setting a price.</li>
-          <li><span className="step-num">2</span>ReLoop reviews the photos to confirm the item is clean and usable.</li>
-          <li><span className="step-num">3</span>Once approved, we match it with one of our charity partners in Kigali.</li>
-          <li><span className="step-num">4</span>You drop it at the same pickup point sellers use — no separate process to learn.</li>
-          <li><span className="step-num">5</span>We handle delivery to the partner organization. You&apos;ll see which one received it.</li>
-        </ul>
-        <div className="loop-note">Donated items are never resold by ReLoop or by our partners — they go directly to people who need them.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div className="trim"></div>
-
-{/* TRUST / LOGISTICS */}
-<section style={{ background: 'var(--paper-dim)' }}>
-  <div className="wrap">
-    <div className="section-head">
-      <div className="eyebrow">The details that make it work</div>
-      <h2>Trust isn&apos;t automatic. We build it into every step.</h2>
-    </div>
-
-    <div className="info-grid">
-      <div className="info-card">
-        <div className="path-icon" style={{ background: 'var(--indigo-deep)' }}>🔒</div>
-        <h3>Payment protection</h3>
-        <p>Money from a sale sits with ReLoop until the buyer confirms the item arrived as described. Sellers never ship into the unknown, and buyers never pay for a surprise.</p>
-      </div>
-      <div className="info-card">
-        <div className="path-icon" style={{ background: 'var(--teal-deep)' }}>📦</div>
-        <h3>Tracked shipping</h3>
-        <p>Every sold item gets a tracking number the buyer can follow from pickup to delivery. Shipping is paid by the buyer, on top of the item&apos;s price.</p>
-      </div>
-      <div className="info-card">
-        <div className="path-icon" style={{ background: 'var(--clay)' }}>✅</div>
-        <h3>Condition checks</h3>
-        <p>Donated items are reviewed before they&apos;re routed to a partner, so charities only receive things that are genuinely usable.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div className="trim"></div>
-
-{/* FAQ */}
-<section>
-  <div className="wrap">
-    <div className="section-head">
-      <div className="eyebrow">Common questions</div>
-      <h2>Still wondering about something?</h2>
-    </div>
-
-    <div className="faq-list">
-      <details className="faq-item">
-        <summary>How do I get paid after a sale?</summary>
-        <p>Once your buyer confirms the item matches the listing, your full asking price is released to your ReLoop balance, which you can withdraw to mobile money or your bank account.</p>
-      </details>
-      <details className="faq-item">
-        <summary>Can I change a listing from &quot;Sell&quot; to &quot;Donate&quot; later?</summary>
-        <p>Yes — as long as no buyer has purchased it yet, you can switch a listing between selling and donating at any time from your dashboard.</p>
-      </details>
-      <details className="faq-item">
-        <summary>Who pays for shipping?</summary>
-        <p>The buyer pays shipping on top of the item&apos;s price when they check out. Sellers are never charged for postage, and donations ship for free.</p>
-      </details>
-      <details className="faq-item">
-        <summary>What happens if my donated item isn&apos;t accepted?</summary>
-        <p>If an item doesn&apos;t pass our condition check, we&apos;ll let you know why and you can choose to collect it again or dispose of it responsibly.</p>
-      </details>
-      <details className="faq-item">
-        <summary>Which charities does ReLoop work with?</summary>
-        <p>Currently Imbuto Foundation, Rwanda Women&apos;s Network, and Caritas Rwanda — all based in Kigali. You can see which partner received your donation from your account.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-{/* FINAL CTA */}
-<section className="final-cta">
-  <div className="wrap">
-    <h2>Ready to clear out your closet?</h2>
-    <p>Sell it, give it away, or a bit of both — the choice is yours every time you list.</p>
-    <div className="hero-ctas">
-      <a href="/#shop" className="btn btn-ochre">Sell an item →</a>
-      <a href="/#shop" className="btn btn-teal">Donate an item →</a>
-    </div>
-  </div>
-</section>
-
-{/* FOOTER */}
-<footer>
-  <div className="wrap">
-    <div className="footer-top">
-      <div className="footer-brand">
-        <div className="logo"><span className="dot"></span>ReLoop</div>
-        <p>A Kigali-born marketplace for second-hand clothes, shoes, furniture and accessories — sold or given, your choice.</p>
-      </div>
-      <div className="footer-col">
-        <h4>Marketplace</h4>
-        <ul>
-          <li><a href="/#shop">Browse listings</a></li>
-          <li><a href="/#shop">Sell an item</a></li>
-          <li><a href="/#shop">Donate an item</a></li>
-          <li><Link href="/how-it-works">How it works</Link></li>
-        </ul>
-      </div>
-      <div className="footer-col">
-        <h4>Trust &amp; shipping</h4>
-        <ul>
-          <li><a href="#">Buyer protection</a></li>
-          <li><a href="#">Track a parcel</a></li>
-          <li><a href="#">Shipping rates</a></li>
-          <li><a href="#">Report an item</a></li>
-        </ul>
-      </div>
-      <div className="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">About ReLoop</a></li>
-          <li><a href="#">Our charity partners</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div className="charity-block">
-      <h4>Donations are delivered through our charity partners</h4>
-      <div className="charity-logos">
-        <img className="plain-logo" src="/images/logos/imbuto-foundation.png" alt="Imbuto Foundation" />
-        <img className="plain-logo" src="/images/logos/rwanda-womens-network.png" alt="Rwanda Women's Network" />
-        <img className="plain-logo" src="/images/logos/caritas-rwanda.png" alt="Caritas Rwanda" />
-      </div>
-    </div>
-
-    <div className="footer-bottom">
-      <div>© 2026 ReLoop. Made in Kigali.</div>
-      <div className="legal-links">
-        <a href="#">Terms</a>
-        <a href="#">Privacy</a>
-        <a href="#">Trust &amp; Safety</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-    </>
-  );
+function PathCard({
+    icon: Icon,
+    title,
+    intro,
+    steps,
+    note,
+}: {
+    icon: typeof IconTag;
+    title: string;
+    intro: string;
+    steps: string[];
+    note: string;
+}) {
+    return (
+        <div className="rounded-xl bg-background p-6 ring-1 ring-foreground/10 md:p-8">
+            <div className="mb-4 flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Icon className="size-5" />
+            </div>
+            <h3 className="font-heading text-lg font-semibold text-foreground">{title}</h3>
+            <p className="mt-1 mb-5 text-sm text-muted-foreground">{intro}</p>
+            <ol className="flex flex-col gap-3">
+                {steps.map((step, i) => (
+                    <li key={step} className="flex items-start gap-3 text-sm">
+                        <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold tabular-nums text-primary-foreground">
+                            {i + 1}
+                        </span>
+                        <span className="pt-0.5">{step}</span>
+                    </li>
+                ))}
+            </ol>
+            <p className="mt-6 border-t border-dashed border-border pt-5 text-sm text-muted-foreground italic">
+                {note}
+            </p>
+        </div>
+    );
 }

@@ -117,6 +117,7 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
 
                         <ListingActions
                             listingId={l.id}
+                            title={l.title}
                             sellerId={l.sellerId}
                             disposalType={l.disposalType}
                             price={l.price}

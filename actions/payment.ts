@@ -13,12 +13,8 @@ interface VerifyPurchaseInput {
     txRef: string;
 }
 
-/**
- * Called after the Flutterwave inline modal reports success on the client.
- * Never trusts that callback alone — re-verifies the transaction server-side
- * with the secret key before writing an order, and re-checks the listing is
- * still available inside the transaction to avoid a race between two buyers.
- */
+// Called after the Flutterwave inline modal reports success on the client.
+
 export async function verifyFlutterwavePurchase({ listingId, transactionId, txRef }: VerifyPurchaseInput) {
     const buyer = await requireUser();
 

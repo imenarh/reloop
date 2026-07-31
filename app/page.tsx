@@ -51,7 +51,7 @@ export default async function Home() {
                         Your closet still has
                         <br />
                         <span
-                            className="text-[var(--clay)]"
+                            className="text-clay"
                             style={{
                                 backgroundImage:
                                     'linear-gradient(180deg, transparent 62%, var(--ochre) 62%)',

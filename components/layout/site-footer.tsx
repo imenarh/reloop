@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { listApprovedOrganizations } from '@/lib/mock';
+import { listApprovedOrganizations } from '@/actions/organizations';
 
 const MARKETPLACE_LINKS = [
     { href: '/listings', label: 'Browse listings' },

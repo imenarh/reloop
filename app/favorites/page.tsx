@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getUserFavorites } from '@/lib/mock';
-import { requireUser } from '@/lib/mock';
+import { getUserFavorites } from '@/actions/favorites';
+import { requireUser } from '@/lib/session';
 import { ActionError } from '@/lib/errors';
 import { Button } from '@/components/ui/button';
 import { ListingCard } from '@/components/listings/listing-card';

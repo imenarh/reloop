@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { IconHeart } from '@tabler/icons-react';
 import { useSession } from '@/lib/auth-client';
-import { toggleFavorite } from '@/lib/mock';
+import { toggleFavorite } from '@/actions/favorites';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 

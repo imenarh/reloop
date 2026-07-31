@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { requireUser } from '@/lib/mock';
+import { requireUser } from '@/lib/session';
 import { OnboardingForm } from './onboarding-form';
 
 export default async function OnboardingPage() {

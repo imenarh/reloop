@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { IconArrowLeft } from '@tabler/icons-react';
-import { getListingById } from '@/lib/mock';
-import { isListingFavorited } from '@/lib/mock';
-import { getUserApprovedOrganizations } from '@/lib/mock';
+import { getListingById } from '@/actions/listings';
+import { isListingFavorited } from '@/actions/favorites';
+import { getUserApprovedOrganizations } from '@/actions/organizations';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ListingActions } from '@/components/listings/listing-actions';

@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
-import { getListingById } from '@/lib/mock';
-import { requireUser } from '@/lib/mock';
+import { getListingById } from '@/actions/listings';
+import { requireUser } from '@/lib/session';
 import { ActionError } from '@/lib/errors';
 import { ListingForm } from '@/components/listings/listing-form';
 

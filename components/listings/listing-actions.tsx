@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useSession } from '@/lib/auth-client';
-import { createOrder } from '@/lib/mock';
+import { createOrder } from '@/actions/orders';
 import { ActionError } from '@/lib/errors';
 import { Button } from '@/components/ui/button';
 import {

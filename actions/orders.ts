@@ -19,6 +19,10 @@ export async function createOrder(input: CreateOrderInput) {
         if (listing.sellerId === buyer.id) throw new ActionError('CANNOT_ORDER_OWN_LISTING');
         if (listing.status !== 'active') throw new ActionError('LISTING_NOT_AVAILABLE');
 
+        if (data.type === 'purchase') {
+            throw new ActionError('USE_FLUTTERWAVE_CHECKOUT', 'Resale purchases must go through Flutterwave checkout.');
+        }
+
         if (data.type === 'donation_claim') {
             if (listing.disposalType !== 'donation') {
                 throw new ActionError('LISTING_IS_NOT_A_DONATION');
@@ -33,10 +37,6 @@ export async function createOrder(input: CreateOrderInput) {
             if (org.charityStatus !== 'approved') {
                 throw new ActionError('ORGANIZATION_NOT_APPROVED');
             }
-        } else {
-            if (listing.disposalType !== 'resale') {
-                throw new ActionError('LISTING_IS_NOT_FOR_SALE');
-            }
         }
 
         const [order] = await tx
@@ -47,14 +47,14 @@ export async function createOrder(input: CreateOrderInput) {
                 sellerId: listing.sellerId,
                 organizationId: data.organizationId ?? null,
                 type: data.type,
-                amount: data.type === 'purchase' ? listing.price : null,
-                paymentStatus: data.type === 'purchase' ? 'mock_paid' : 'pending',
+                amount: null,
+                paymentStatus: 'pending',
             })
             .returning();
 
         await tx
             .update(listings)
-            .set({ status: data.type === 'purchase' ? 'sold' : 'claimed', updatedAt: new Date() })
+            .set({ status: 'claimed', updatedAt: new Date() })
             .where(eq(listings.id, data.listingId));
 
         revalidatePath('/listings');

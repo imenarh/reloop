@@ -19,7 +19,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "ReLoop — Give it a second life",
+  title: "ReLoop | Give it a second life",
   description:
     "Sell or donate your second-hand clothes, shoes, furniture and accessories in Kigali, Rwanda.",
 };

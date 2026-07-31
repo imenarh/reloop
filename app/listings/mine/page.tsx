@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-import { listListings, removeListing } from '@/lib/mock';
-import { requireUser } from '@/lib/mock';
+import { listListings, removeListing } from '@/actions/listings';
+import { requireUser } from '@/lib/session';
 import { ActionError } from '@/lib/errors';
 import { Button } from '@/components/ui/button';
 import { ListingCard } from '@/components/listings/listing-card';

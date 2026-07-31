@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
 import { useSession } from '@/lib/auth-client';
-import { createOrder } from '@/lib/mock';
+import { createOrder } from '@/actions/orders';
+import { verifyFlutterwavePurchase } from '@/actions/payment';
 import { ActionError } from '@/lib/errors';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,6 +28,7 @@ interface Organization {
 
 interface ListingActionsProps {
     listingId: string;
+    title: string;
     sellerId: string;
     disposalType: 'resale' | 'donation';
     price: string | null;
@@ -40,9 +43,10 @@ const errorMessages: Record<string, string> = {
     NOT_ORGANIZATION_OWNER: 'Only the organization owner can claim this donation.',
     ORGANIZATION_NOT_APPROVED: 'Your organization must be approved before claiming donations.',
     UNAUTHENTICATED: 'Please log in to continue.',
+    PAYMENT_VERIFICATION_FAILED: 'We could not verify that payment. Please try again.',
 };
 
-export function ListingActions({ listingId, sellerId, disposalType, price, status, initialFavorited, userOrganizations = [] }: ListingActionsProps) {
+export function ListingActions({ listingId, title, sellerId, disposalType, price, status, initialFavorited, userOrganizations = [] }: ListingActionsProps) {
     const { data: session, isPending } = useSession();
     const router = useRouter();
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -65,12 +69,35 @@ export function ListingActions({ listingId, sellerId, disposalType, price, statu
     async function handleConfirm() {
         setSubmitting(true);
         try {
-            if (disposalType === 'resale') {
-                await createOrder({ listingId, type: 'purchase' });
+            await createOrder({ listingId, type: 'donation_claim', organizationId: selectedOrgId });
+            toast.success('Donation claimed!');
+            setDialogOpen(false);
+            router.refresh();
+        } catch (err) {
+            if (err instanceof ActionError) {
+                toast.error(errorMessages[err.code] ?? err.message);
             } else {
-                await createOrder({ listingId, type: 'donation_claim', organizationId: selectedOrgId });
+                toast.error('Something went wrong. Please try again.');
             }
-            toast.success(disposalType === 'resale' ? 'Purchase confirmed!' : 'Donation claimed!');
+        } finally {
+            setSubmitting(false);
+        }
+    }
+
+    async function handleFlutterwaveCallback(response: { transaction_id: number; tx_ref: string; status: string }) {
+        closePaymentModal();
+        if (response.status !== 'successful') {
+            toast.error('Payment was not completed.');
+            return;
+        }
+        setSubmitting(true);
+        try {
+            await verifyFlutterwavePurchase({
+                listingId,
+                transactionId: String(response.transaction_id),
+                txRef: response.tx_ref,
+            });
+            toast.success('Purchase confirmed!');
             setDialogOpen(false);
             router.refresh();
         } catch (err) {
@@ -85,6 +112,7 @@ export function ListingActions({ listingId, sellerId, disposalType, price, statu
     }
 
     const canClaim = userOrganizations.length > 0;
+    const txRef = `reloop-${listingId}-${session?.user?.id ?? 'guest'}-${Math.random().toString(36).slice(2)}`;
 
     return (
         <div className="flex items-center gap-3">
@@ -118,7 +146,7 @@ export function ListingActions({ listingId, sellerId, disposalType, price, statu
                         </DialogTitle>
                         <DialogDescription>
                             {disposalType === 'resale'
-                                ? 'This confirms a mock purchase — no real payment is processed yet.'
+                                ? "You'll be redirected to Flutterwave to complete payment."
                                 : 'Select the organization claiming this donation.'}
                         </DialogDescription>
                     </DialogHeader>
@@ -141,9 +169,34 @@ export function ListingActions({ listingId, sellerId, disposalType, price, statu
                         <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={submitting}>
                             Cancel
                         </Button>
-                        <Button onClick={handleConfirm} disabled={submitting || (disposalType === 'donation' && !selectedOrgId)}>
-                            {submitting ? 'Confirming...' : 'Confirm'}
-                        </Button>
+                        {disposalType === 'resale' ? (
+                            <FlutterWaveButton
+                                public_key={process.env.NEXT_PUBLIC_FLW_PUBLIC_KEY ?? ''}
+                                tx_ref={txRef}
+                                amount={Number(price)}
+                                currency="RWF"
+                                payment_options="card, mobilemoney, ussd"
+                                customer={{
+                                    email: session?.user?.email ?? '',
+                                    phone_number: '',
+                                    name: session?.user?.name ?? '',
+                                }}
+                                customizations={{
+                                    title: 'ReLoop',
+                                    description: title,
+                                    logo: '',
+                                }}
+                                callback={handleFlutterwaveCallback}
+                                onClose={() => {}}
+                                disabled={submitting}
+                                className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground disabled:opacity-50"
+                                text={submitting ? 'Confirming...' : 'Pay now'}
+                            />
+                        ) : (
+                            <Button onClick={handleConfirm} disabled={submitting || !selectedOrgId}>
+                                {submitting ? 'Confirming...' : 'Confirm'}
+                            </Button>
+                        )}
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

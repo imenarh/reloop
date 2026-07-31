@@ -9,8 +9,8 @@ import {
     IconTruckDelivery,
 } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
-import { listListings } from '@/lib/mock';
-import { getMarketplaceStats } from '@/lib/mock';
+import { listListings } from '@/actions/listings';
+import { getMarketplaceStats } from '@/actions/stats';
 import { ListingCard } from '@/components/listings/listing-card';
 import { SearchBox } from '@/components/listings/search-box';
 
@@ -51,7 +51,7 @@ export default async function Home() {
                         Your closet still has
                         <br />
                         <span
-                            className="text-[var(--clay)]"
+                            className="text-clay"
                             style={{
                                 backgroundImage:
                                     'linear-gradient(180deg, transparent 62%, var(--ochre) 62%)',

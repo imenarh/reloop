@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { listCategories } from '@/lib/mock';
-import { listListings } from '@/lib/mock';
+import { listCategories } from '@/actions/categories';
+import { listListings } from '@/actions/listings';
 import { ListingCard } from '@/components/listings/listing-card';
 import { CategoryFilter } from '@/components/listings/category-filter';
 import { SearchBox } from '@/components/listings/search-box';

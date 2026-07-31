@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getUserOrders } from '@/lib/mock';
-import { requireUser } from '@/lib/mock';
+import { getUserOrders } from '@/actions/orders';
+import { requireUser } from '@/lib/session';
 import { ActionError } from '@/lib/errors';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
